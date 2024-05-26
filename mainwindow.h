@@ -22,6 +22,9 @@
 #include <QBarSet>
 #include <QValueAxis>
 #include <QFileDialog>
+#include <QTextStream>
+#include <sstream>
+#include <string>
 
 class MainWindow : public QMainWindow
 {
@@ -52,5 +55,6 @@ public slots:
     void aboutTrigger();
     void updateState();
     void saveTrigger();
+    void loadTrigger();
 };
 #endif // MAINWINDOW_H

@@ -25,6 +25,7 @@ MainWindow::MainWindow(QWidget *parent)
     fileMenu->addAction(saveAction);
     connect(saveAction, SIGNAL(triggered(bool)), this, SLOT(saveTrigger()));
     fileMenu->addAction(loadAction);
+    connect(loadAction, SIGNAL(triggered(bool)), this, SLOT(loadTrigger()));
 
     // toolbar
     toolBar = new QToolBar("properties");
@@ -114,5 +115,25 @@ void MainWindow::saveTrigger()
         // QPixmap pm = QPixmap::grabWidget(this->centralWidget());
         // pm.save(fd.selectedFiles()[0]);
         this->centralWidget()->grab().save(fd.selectedFiles()[0]);
+    }
+}
+
+void MainWindow::loadTrigger()
+{
+    QString path = QFileDialog::getOpenFileName(this, "", "", "*.txt");
+    if (path.isEmpty()) { return; }
+    QFile* file = new QFile(path);
+    file->open(QIODeviceBase::ReadOnly);
+    QTextStream ts(file);
+    QString timeS = ts.readAll();
+    std::string str = timeS.toStdString();
+    std::stringstream ss(str);
+    while (ss.peek() != EOF) {
+        std::string one;
+        std::getline(ss, one, ';');
+        qDebug() << one;
+        std::string two;
+        std::getline(ss, two);
+        qDebug() << two;
     }
 }
