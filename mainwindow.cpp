@@ -14,6 +14,7 @@ MainWindow::MainWindow(QWidget *parent)
     saveAction = new QAction("save");
     loadAction = new QAction("load");
     about = new QAction("about");
+    connect(about, SIGNAL(triggered(bool)), this, SLOT(aboutTrigger()));
     AboutMenu->addAction(about);
     menuBar->addAction(about);
     fileMenu->addAction(saveAction);
@@ -21,3 +22,11 @@ MainWindow::MainWindow(QWidget *parent)
 }
 
 MainWindow::~MainWindow() {}
+
+void MainWindow::aboutTrigger()
+{
+    QMessageBox msgBox;
+    msgBox.setText("Бирюк Илья Александрович\n11 группа\n0 Вариант");
+    msgBox.setWindowTitle("О программе");
+    msgBox.exec();
+}

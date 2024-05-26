@@ -6,6 +6,7 @@
 #include <QMenu>
 #include <QAction>
 #include <QToolBar>
+#include <QMessageBox>
 
 class MainWindow : public QMainWindow
 {
@@ -24,5 +25,8 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
+public slots:
+    void aboutTrigger();
 };
 #endif // MAINWINDOW_H
