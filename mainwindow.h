@@ -10,6 +10,10 @@
 #include <QComboBox>
 #include <QColor>
 #include <QPixmap>
+#include <QRadioButton>
+#include <QButtonGroup>
+#include <QActionGroup>
+#include <QContextMenuEvent>
 
 class MainWindow : public QMainWindow
 {
@@ -22,8 +26,10 @@ class MainWindow : public QMainWindow
     QMenu* AboutMenu;
     QAction* about;
     QToolBar* toolBar;
-    QComboBox* comboBox;
     QAction* colorAction;
+    QMenu* sizeMenu;
+    // QButtonGroup* bg;
+    QActionGroup* ag;
     // end
 
     //properties
@@ -32,6 +38,7 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    void contextMenuEvent(QContextMenuEvent *event);
 
 public slots:
     void aboutTrigger();

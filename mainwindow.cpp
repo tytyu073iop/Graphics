@@ -30,9 +30,26 @@ MainWindow::MainWindow(QWidget *parent)
     addToolBar(toolBar);
     colorAction = new QAction(getColorIcon(Qt::black), "color");
     toolBar->addAction(colorAction);
+
+    // sizeMenu
+    sizeMenu = new QMenu("size");
+    ag = new QActionGroup(this);
+    for (int i = 1; i <= 10; ++i) {
+        QAction* action = new QAction(QString::number(i));
+        action->setCheckable(true);
+        if (i == 1) { action->setChecked(true); }
+        ag->addAction(action);
+        sizeMenu->addAction(action);
+
+    }
 }
 
 MainWindow::~MainWindow() {}
+
+void MainWindow::contextMenuEvent(QContextMenuEvent *event)
+{
+    sizeMenu->exec(event->globalPos());
+}
 
 void MainWindow::aboutTrigger()
 {
