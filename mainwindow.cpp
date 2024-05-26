@@ -42,6 +42,8 @@ MainWindow::MainWindow(QWidget *parent)
         sizeMenu->addAction(action);
 
     }
+    updateState();
+    connect(sizeMenu, SIGNAL(triggered(QAction*)), this, SLOT(updateState()));
 }
 
 MainWindow::~MainWindow() {}
@@ -57,4 +59,12 @@ void MainWindow::aboutTrigger()
     msgBox.setText("Бирюк Илья Александрович\n11 группа\n0 Вариант");
     msgBox.setWindowTitle("О программе");
     msgBox.exec();
+}
+
+void MainWindow::updateState()
+{
+    QStatusBar* sb = new QStatusBar;
+    setStatusBar(sb);
+    QString size = ag->checkedAction() == nullptr ? "error" : ag->checkedAction()->text();
+    sb->addWidget(new QLabel("size: " + size));
 }

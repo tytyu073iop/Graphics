@@ -14,6 +14,8 @@
 #include <QButtonGroup>
 #include <QActionGroup>
 #include <QContextMenuEvent>
+#include <QStatusBar>
+#include <QLabel>
 
 class MainWindow : public QMainWindow
 {
@@ -42,5 +44,6 @@ public:
 
 public slots:
     void aboutTrigger();
+    void updateState();
 };
 #endif // MAINWINDOW_H
