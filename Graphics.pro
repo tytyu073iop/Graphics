@@ -1,4 +1,6 @@
 QT       += core gui
+QT       += charts
+# QT       += graphs
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 

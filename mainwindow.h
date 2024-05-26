@@ -16,6 +16,12 @@
 #include <QContextMenuEvent>
 #include <QStatusBar>
 #include <QLabel>
+#include <QChartView>
+#include <QBarCategoryAxis>
+#include <QBarSeries>
+#include <QBarSet>
+#include <QValueAxis>
+#include <QFileDialog>
 
 class MainWindow : public QMainWindow
 {
@@ -45,5 +51,6 @@ public:
 public slots:
     void aboutTrigger();
     void updateState();
+    void saveTrigger();
 };
 #endif // MAINWINDOW_H

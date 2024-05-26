@@ -23,6 +23,7 @@ MainWindow::MainWindow(QWidget *parent)
     AboutMenu->addAction(about);
     menuBar->addAction(about);
     fileMenu->addAction(saveAction);
+    connect(saveAction, SIGNAL(triggered(bool)), this, SLOT(saveTrigger()));
     fileMenu->addAction(loadAction);
 
     // toolbar
@@ -44,6 +45,40 @@ MainWindow::MainWindow(QWidget *parent)
     }
     updateState();
     connect(sizeMenu, SIGNAL(triggered(QAction*)), this, SLOT(updateState()));
+
+    // view
+    QChart* chart = new QChart();
+    chart->setBackgroundPen(QPen(Qt::blue));
+    chart->setBackgroundBrush(QBrush(Qt::yellow));
+    chart->setPlotAreaBackgroundPen(QPen(Qt::black));
+    chart->setPlotAreaBackgroundBrush(QBrush(Qt::white));
+    QBarSeries* bs = new QBarSeries;
+    bs->setBarWidth(1/qreal(10));
+    QBarSet* bSet = new QBarSet("schools");
+    bSet->append(3);
+    bSet->append(5);
+    bs->append(bSet);
+    QBarSet* bSet2 = new QBarSet("vans");
+    bSet2->append(1);
+    bSet2->append(2);
+    bs->append(bSet2);
+    chart->addSeries(bs);
+    QBarCategoryAxis* bca = new QBarCategoryAxis;
+    chart->addAxis(bca, Qt::AlignBottom);
+    bs->attachAxis(bca);
+    // bca->append("skibidi");
+    // bca->append("rizz");
+    // bca->append("6");
+    QValueAxis* va = new QValueAxis;
+    // va->setMax(10);
+    // va->setMin(-10);
+    // va->setTickCount(5);
+    // va->setTickInterval(3);
+    chart->addAxis(va, Qt::AlignLeft);
+    bs->attachAxis(va);
+    QChartView* cv = new QChartView(chart);
+    setCentralWidget(cv);
+
 }
 
 MainWindow::~MainWindow() {}
@@ -67,4 +102,17 @@ void MainWindow::updateState()
     setStatusBar(sb);
     QString size = ag->checkedAction() == nullptr ? "error" : ag->checkedAction()->text();
     sb->addWidget(new QLabel("size: " + size));
+}
+
+void MainWindow::saveTrigger()
+{
+    QFileDialog fd;
+    fd.setDefaultSuffix("png");
+    fd.setAcceptMode(QFileDialog::AcceptSave);
+    if (fd.exec()) {
+        qDebug() << fd.selectedFiles();
+        // QPixmap pm = QPixmap::grabWidget(this->centralWidget());
+        // pm.save(fd.selectedFiles()[0]);
+        this->centralWidget()->grab().save(fd.selectedFiles()[0]);
+    }
 }
