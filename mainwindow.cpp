@@ -1,6 +1,11 @@
 #include "mainwindow.h"
 
-// inline QIcon
+inline QIcon getColorIcon(const QColor& color) {
+    QPixmap pm(20, 20);
+    pm.fill(color);
+    QIcon icon(pm);
+    return icon;
+}
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -19,6 +24,12 @@ MainWindow::MainWindow(QWidget *parent)
     menuBar->addAction(about);
     fileMenu->addAction(saveAction);
     fileMenu->addAction(loadAction);
+
+    // toolbar
+    toolBar = new QToolBar("properties");
+    addToolBar(toolBar);
+    colorAction = new QAction(getColorIcon(Qt::black), "color");
+    toolBar->addAction(colorAction);
 }
 
 MainWindow::~MainWindow() {}

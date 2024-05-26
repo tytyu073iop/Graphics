@@ -7,6 +7,9 @@
 #include <QAction>
 #include <QToolBar>
 #include <QMessageBox>
+#include <QComboBox>
+#include <QColor>
+#include <QPixmap>
 
 class MainWindow : public QMainWindow
 {
@@ -18,9 +21,13 @@ class MainWindow : public QMainWindow
     QAction* loadAction;
     QMenu* AboutMenu;
     QAction* about;
+    QToolBar* toolBar;
+    QComboBox* comboBox;
     QAction* colorAction;
-    QAction* sizeAction;
     // end
+
+    //properties
+    QColor color;
 
 public:
     MainWindow(QWidget *parent = nullptr);
